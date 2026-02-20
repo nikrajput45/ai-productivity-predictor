@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 # Page config
 st.set_page_config(page_title="AI Productivity Dashboard", page_icon="📊", layout="wide")
 
-# Load data and model
+# Load model
 model = joblib.load("model.pkl")
 
 # Title
@@ -33,36 +33,22 @@ if st.sidebar.button("Predict"):
 # Layout columns
 col1, col2 = st.columns(2)
 
-# Chart 1: Study vs Productivity
+# Dummy charts (without dataset)
 with col1:
     st.subheader("📚 Study Hours vs Productivity")
     fig1, ax1 = plt.subplots()
-    ax1.scatter(df["Hours_Studied"], df["Productivity_Score"])
     ax1.set_xlabel("Hours Studied")
     ax1.set_ylabel("Productivity Score")
     st.pyplot(fig1)
 
-# Chart 2: Phone Usage vs Productivity
 with col2:
     st.subheader("📱 Phone Usage vs Productivity")
     fig2, ax2 = plt.subplots()
-    ax2.scatter(df["Phone_Usage"], df["Productivity_Score"])
     ax2.set_xlabel("Phone Usage")
     ax2.set_ylabel("Productivity Score")
     st.pyplot(fig2)
 
-# Correlation Matrix
-st.subheader("📈 Correlation Matrix")
-
-fig3, ax3 = plt.subplots()
-corr = df.corr()
-cax = ax3.matshow(corr)
-plt.xticks(range(len(corr.columns)), corr.columns, rotation=45)
-plt.yticks(range(len(corr.columns)), corr.columns)
-plt.colorbar(cax)
-st.pyplot(fig3)
-
-# Feature Importance (Model Coefficients)
+# Feature Importance
 st.subheader("🧠 Feature Importance")
 
 importance_df = pd.DataFrame({
@@ -71,8 +57,3 @@ importance_df = pd.DataFrame({
 })
 
 st.bar_chart(importance_df.set_index("Feature"))
-
-# Data preview
-st.subheader("📂 Dataset Preview")
-
-st.dataframe(df.head())
