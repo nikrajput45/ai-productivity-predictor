@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 st.set_page_config(page_title="AI Productivity Dashboard", page_icon="📊", layout="wide")
 
 # Load data and model
-df = pd.read_csv("data/productivity_data.csv")
 model = joblib.load("model.pkl")
 
 # Title
@@ -75,4 +74,5 @@ st.bar_chart(importance_df.set_index("Feature"))
 
 # Data preview
 st.subheader("📂 Dataset Preview")
+
 st.dataframe(df.head())
